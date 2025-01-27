@@ -1,57 +1,57 @@
 * {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: black;
+  font-family: var(--wp--preset--font-family--rubik);
+  color: black;
 }
 
-body{
-    margin: 0px;
+body {
+  margin: 0px;
 }
 
-header{
-    display: flex;
-    flex-wrap: nowrap;
-    width: 1000px;
+header {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 1000px;
 }
 
-header img{
-    width: 100px;
-    height: 100px;
+header img {
+  width: 100px;
+  height: 100px;
 }
 
 #main {
-    display: flex;
-    flex: content;
-    flex-wrap: wrap;
-    height: 100vh;
-    justify-content: space-around;
+  display: flex;
+  flex: content;
+  flex-wrap: wrap;
+  height: 100vh;
+  justify-content: space-around;
 }
 
-.card{
-    background-color: rgb(125, 77, 77);
-    margin: 2rem;
-    height: 16rem;
-    width: 22rem;
+.card {
+  background-color: rgb(125, 77, 77);
+  margin: 2rem;
+  height: 16rem;
+  width: 22rem;
 }
 
-.card h1{
-    text-align: center;
+.card h1 {
+  text-align: center;
 }
 
-.card p{
-    padding-left: 1rem;
-    padding-right: 1rem;
+.card p {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-footer{
-    background-color: gray;
-    text-decoration: none;
-    text-align: center;
-    height: 6rem;
-    margin: 0%;
-    padding: 0%;
+footer {
+  background-color: gray;
+  text-decoration: none;
+  text-align: center;
+  height: 6rem;
+  margin: 0%;
+  padding: 0%;
 }
 
 a {
-    text-decoration: none;
-    padding: 1rem;
+  text-decoration: none;
+  padding: 1rem;
 }
