@@ -10,5 +10,27 @@
       href="/style.css?<%=Time.now.to_i%>"
     />
   </head>
-  <body></body>
+  <body>
+    <header>
+      <h1>Webshop</h1>
+      <img src="../public/img/" alt="Logo" />
+    </header>
+
+    <div id="main">
+      <% @databas.each do |databas| %>
+      <div class="card">
+        <h1><%= databas ['title'] %></h1>
+        <p>price: <%= databas ['price'] %></p>
+        <p>Desc: <%= databas ['description'] %></p>
+        <p>stock: <%= databas ['stock'] %></p>
+      </div>
+      <% end %>
+    </div>
+
+    <footer>
+      <a href="">About us</a>
+      <a href="">Customer service</a>
+      <p>Copyright© 2025 Edvin Lind. Med ensamrätt.</p>
+    </footer>
+  </body>
 </html>
