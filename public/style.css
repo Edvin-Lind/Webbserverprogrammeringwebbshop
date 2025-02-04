@@ -1,57 +1,102 @@
-* {
-  font-family: var(--wp--preset--font-family--rubik);
-  color: black;
+*{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 body {
-  margin: 0px;
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(-45deg, #f5f7fa, #c3cfe2, #9fa8da, #7986cb);
+  background-size: 400% 400%;
+  animation: gradientAnimation 120s ease infinite;
+  color: #212529;
+  font-family: Arial, sans-serif;
 }
 
 header {
   display: flex;
-  flex-wrap: nowrap;
-  width: 1000px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 2rem;
+  color: #343a40;
 }
 
 header img {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: auto;
 }
 
 #main {
   display: flex;
-  flex: content;
   flex-wrap: wrap;
-  height: 100vh;
-  justify-content: space-around;
+  justify-content: center;
+  padding: 2rem;
+  gap: 2rem;
 }
 
 .card {
-  background-color: rgb(125, 77, 77);
-  margin: 2rem;
-  height: 16rem;
-  width: 22rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 300px;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.card .price:hover {
+  transform: scale(2);
 }
 
 .card h1 {
-  text-align: center;
+  font-size: 1.5rem;
+  color: #495057;
+  margin-bottom: 0.5rem;
 }
 
 .card p {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.price p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #28a745;
+  margin-bottom: 0%;
+}
+
+#stock {
+  font-size: 1rem;
+  color: #007bff;
+  margin-top: 0%;
 }
 
 footer {
-  background-color: gray;
-  text-decoration: none;
+  background-color: #343a40;
+  color: #ffffff;
   text-align: center;
-  height: 6rem;
-  margin: 0%;
-  padding: 0%;
+  padding: 1rem;
+  margin-top: 2rem;
 }
 
 a {
+  color: #f8f9fa;
   text-decoration: none;
-  padding: 1rem;
+}
+
+a:hover {
+  color: #adb5bd;
 }

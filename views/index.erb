@@ -20,9 +20,9 @@
       <% @databas.each do |databas| %>
       <div class="card">
         <h1><%= databas ['title'] %></h1>
-        <p>price: <%= databas ['price'] %></p>
+        <a href="" class="price"><p>price: <%= databas ['price'] %></p></a>
+        <p id="stock">stock: <%= databas ['stock'] %></p>
         <p>Desc: <%= databas ['description'] %></p>
-        <p>stock: <%= databas ['stock'] %></p>
       </div>
       <% end %>
     </div>

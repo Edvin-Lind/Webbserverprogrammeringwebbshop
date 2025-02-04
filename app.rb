@@ -22,8 +22,9 @@ class App < Sinatra::Base
       color = params['price']
       description = params['description']
       priority = params['stock']
+      owner_id = params['owner_id']
 
-      db.execute("INSERT INTO databas (title, price, description, stock) VALUES(?,?,?,?)", [title, price, description, stock])
+      db.execute("INSERT INTO databas (title, price, owner_id, description, stock) VALUES(?,?,?,?)", [title, price, owner_id, description, stock])
       redirect("/")
   end
 
@@ -45,8 +46,9 @@ class App < Sinatra::Base
       color = params['price']
       description = params['description']
       priority = params['stock']
+      owner_id = params['owner_id']
 
-      db.execute('UPDATE databas SET title = ?, price = ?, description = ?, stock = ? WHERE id = ?', [title, price, description, stock, id])
+      db.execute('UPDATE databas SET title = ?, price = ?, owner_id = ?, description = ?, stock = ? WHERE id = ?', [title, price, owner_id, description, stock, id])
       redirect('/')
   end
 
