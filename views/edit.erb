@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/style.css?<%=Time.now.to_i%>"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Webbshop</h1>
+      <img src="../public/img/" alt="Logo" />
+    </header>
+
+    <div id="main">
+      <% @databas.each do |databas| %>
+      <div>
+        <div class="card">
+          <h1><%= databas ['title'] %></h1>
+          <p>price: <%= databas ['price'] %></p>
+          <p>Desc: <%= databas ['description'] %></p>
+          <p>stock: <%= databas ['stock'] %></p>
+
+          <form action="/edit/<%= databas['id'] %>" method="get">
+            <input type="submit" value="Redigera" />
+          </form>
+
+          <form action="/delete/<%= databas['id'] %>" method="post">
+            <input type="hidden" name="_method" value="delete" />
+            <input type="submit" value="Ta bort" />
+          </form>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+    <footer>
+      <a href="">About us</a>
+      <a href="">Customer service</a>
+      <p>Copyright© 2025 Edvin Lind. Med ensamrätt.</p>
+    </footer>
+  </body>
+</html>

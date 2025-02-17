@@ -34,9 +34,8 @@ class App < Sinatra::Base
       redirect('/')
   end
 
-  get '/edit/:id' do
-      id = params['id']
-      @todo = db.execute('SELECT * FROM databas WHERE id = ?', [id]).first
+  get '/edit' do
+      @databas = db.execute('SELECT * FROM databas')
       erb(:edit)
     end
 

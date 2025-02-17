@@ -41,7 +41,7 @@ header img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
   gap: 2rem;
 }
 
@@ -51,6 +51,7 @@ header img {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   width: 300px;
+  height: 300px;
   transition: transform 0.3s ease;
   text-align: center;
 }
