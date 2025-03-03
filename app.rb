@@ -51,4 +51,20 @@ class App < Sinatra::Base
       redirect('/')
   end
 
+  get '/editor' do
+    @databas = db.execute('SELECT * FROM databas')
+    erb(:editor)
+  end
+
+  post '/editor/:id' do
+      id = params['id']
+      title = params['title']
+      color = params['price']
+      description = params['description']
+      priority = params['stock']
+      owner_id = params['owner_id']
+
+      db.execute('UPDATE databas SET title = ?, price = ?, owner_id = ?, description = ?, stock = ? WHERE id = ?', [title, price, owner_id, description, stock, id])
+      redirect('/')
+  end
 end

@@ -25,9 +25,7 @@
           <p>Desc: <%= databas ['description'] %></p>
           <p>stock: <%= databas ['stock'] %></p>
 
-          <form action="/edit/<%= databas['id'] %>" method="get">
-            <input type="submit" value="Redigera" />
-          </form>
+          <a href="/editor/<%= databas['id'] %>">Redigera</a>
 
           <form action="/delete/<%= databas['id'] %>" method="post">
             <input type="hidden" name="_method" value="delete" />
