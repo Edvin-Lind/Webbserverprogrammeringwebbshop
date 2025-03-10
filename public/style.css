@@ -76,6 +76,10 @@ header img {
   color: #6c757d;
 }
 
+.card a{
+  color: black;
+}
+
 .price p {
   font-size: 1.2rem;
   font-weight: bold;
@@ -105,3 +109,19 @@ a {
 a:hover {
   color: #adb5bd;
 }
+
+form {
+  align-self: center;
+}
+
+form input {
+  color: red;
+  border-color: rgb(106, 106, 106);
+  background-color: white;
+  margin: 10px;
+  border-width: 3px;
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+
