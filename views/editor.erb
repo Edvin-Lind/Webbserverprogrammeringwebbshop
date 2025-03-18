@@ -14,7 +14,7 @@
     <form action="/editor/<%= @databasitem['id'] %>" method="post">
       <label>Title: <input type="text" name="title" value="<%= @databasitem['title'] %>"></label><br>
       <label>Price: <input type="integer" name="price" value="<%= @databasitem['price'] %>"></label><br>
-      <label>Description: <input type="text" name="description" value="<%= @databasitem['description'] %>"></label><br>
+      <label>Description: <input type="text" name="description" value="<%= @databasitem['description'] %>"></lable><br>
       <label>Stock: <input type="integer" name="stock" value="<%= @databasitem['stock'] %>"></label><br>
       <input type="submit" value="Save Changes">
     </form>

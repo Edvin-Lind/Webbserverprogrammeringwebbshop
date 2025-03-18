@@ -18,12 +18,12 @@
     </header>
 
     <div id="main">
-      <% @databas.each do |databas| %>
+      <% @items.each do |items| %>
       <div class="card">
-        <h1><%= databas ['title'] %></h1>
-        <a href="" class="price"><p>price: <%= databas ['price'] %></p></a>
-        <p id="stock">stock: <%= databas ['stock'] %></p>
-        <p>Desc: <%= databas ['description'] %></p>
+        <h1><%= items ['title'] %></h1>
+        <a href="" class="price"><p>price: <%= items ['price'] %></p></a>
+        <p id="stock">stock: <%= items ['stock'] %></p>
+        <p><%= items ['description'] %></p>
       </div>
       <% end %>
     </div>

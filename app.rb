@@ -13,7 +13,7 @@ class App < Sinatra::Base
   end
 
   get '/' do
-      @databas = db.execute('SELECT * FROM databas')
+      @items = db.execute('SELECT * FROM items')
       erb(:"index")
   end
 
@@ -24,18 +24,18 @@ class App < Sinatra::Base
       priority = params['stock']
       owner_id = params['owner_id']
 
-      db.execute("INSERT INTO databas (title, price, owner_id, description, stock) VALUES(?,?,?,?)", [title, price, owner_id, description, stock])
+      db.execute("INSERT INTO items (title, price, owner_id, description, stock) VALUES(?,?,?,?)", [title, price, owner_id, description, stock])
       redirect("/")
   end
 
   delete '/delete/:id' do
       id = params['id']
-      db.execute('DELETE FROM databas WHERE id = ?', [id])
+      db.execute('DELETE FROM items WHERE id = ?', [id])
       redirect('/')
   end
 
   get '/edit' do
-      @databas = db.execute('SELECT * FROM databas')
+      @items = db.execute('SELECT * FROM items')
       erb(:edit)
     end
 
@@ -47,13 +47,13 @@ class App < Sinatra::Base
       priority = params['stock']
       owner_id = params['owner_id']
 
-      db.execute('UPDATE databas SET title = ?, price = ?, owner_id = ?, description = ?, stock = ? WHERE id = ?', [title, price, owner_id, description, stock, id])
+      db.execute('UPDATE items SET title = ?, price = ?, owner_id = ?, description = ?, stock = ? WHERE id = ?', [title, price, owner_id, description, stock, id])
       redirect('/')
   end
 
   get '/editor/:id' do
     id = params['id']
-    @databasitem = db.execute('SELECT * FROM databas WHERE id = ?', [id]).first
+    @databasitem = db.execute('SELECT * FROM items WHERE id = ?', [id]).first
     erb(:editor)
   end
 
@@ -64,7 +64,8 @@ class App < Sinatra::Base
       description = params['description']
       stock = params['stock']
 
-      db.execute('UPDATE databas SET title = ?, price = ?, description = ?, stock = ? WHERE id = ?', [title, price, description, stock, id])
+      db.execute('UPDATE items SET title = ?, price = ?, description = ?, stock = ? WHERE id = ?', [title, price, description, stock, id])
       redirect('/')
   end
+
 end
