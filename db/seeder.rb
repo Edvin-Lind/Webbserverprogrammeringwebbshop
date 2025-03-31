@@ -29,11 +29,11 @@ class Seeder
   end
 
   def self.populate_tables
+    db.execute('INSERT INTO users (username, password, email) VALUES("admin", "admin", "edvinblind@gmail.com")')
     db.execute('INSERT INTO items (title, price, description, stock, user_id) VALUES ("test",   "100", "häst för 100 spänn! Hugg till om du vill ha (har bara tre).", 3, 321133)')
     db.execute('INSERT INTO items (title, price, description, stock, user_id) VALUES ("test2",    "1000", "Hello i try to sell rat for 1000 kr.", 20, 327518)')
     db.execute('INSERT INTO items (title, price, description, stock, user_id) VALUES ("test3",  "10000", "lorem ipsum sit dolor", 100, 762891)')
     db.execute('INSERT INTO items (title, price, description, stock, user_id) VALUES ("Atombomb för lågt pris!",  "50", "B24 vätebomb, har haft lite problem med detonatorn, bra skick", 2, 452277)')
-    db.execute('INSERT INTO users (user_id, username, password, email) VALUES("1", "admin", "admin", "edvinblind@gmail.com")')
   end
 
   private

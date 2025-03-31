@@ -16,22 +16,35 @@
       <img src="../public/img/" alt="Logo" />
     </header>
 
-    <div id="main">
-      <% @items.each do |items| %>
+    <h1>Your Products</h1>
+
+    <form action="/create" method="POST">
+      <input type="text" name="title" placeholder="Product Title" required />
+      <input type="number" name="price" placeholder="Price" required />
+      <input
+        type="text"
+        name="description"
+        placeholder="Description"
+        required
+      />
+      <input type="number" name="stock" placeholder="Stock" required />
+      <button type="submit">Add Product</button>
+    </form>
+
+    <div class="main">
+      <% @items.each do |item| %>
       <div>
-        <div class="card">
-          <h1><%= items ['title'] %></h1>
-          <p>price: <%= items ['price'] %></p>
-          <p>Desc: <%= items ['description'] %></p>
-          <p>stock: <%= items ['stock'] %></p>
+        <h2><%= item['title'] %></h2>
+        <p>Price: <%= item['price'] %></p>
+        <p>Description: <%= item['description'] %></p>
+        <p>Stock: <%= item['stock'] %></p>
 
-          <a href="/editor/<%= items['id'] %>">Redigera</a>
+        <a href="/editor/<%= item['id'] %>">Edit</a>
 
-          <form action="/delete/<%= items['id'] %>" method="post">
-            <input type="hidden" name="_method" value="delete" />
-            <input type="submit" value="Ta bort" />
-          </form>
-        </div>
+        <form action="/delete/<%= item['id'] %>" method="post">
+          <input type="hidden" name="_method" value="delete" />
+          <input type="submit" value="Delete" />
+        </form>
       </div>
       <% end %>
     </div>
