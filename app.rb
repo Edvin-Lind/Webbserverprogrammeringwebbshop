@@ -1,5 +1,8 @@
 require 'sinatra'
 require 'sqlite3'
+require_relative 'models/database_connection'
+require_relative 'models/item'
+require_relative 'models/user'
 
 class App < Sinatra::Base
   configure do
@@ -17,7 +20,7 @@ class App < Sinatra::Base
   end
 
   get '/' do
-      @items = db.execute('SELECT * FROM items')
+      @items = Item.all
       erb(:"index")
   end
 
@@ -26,11 +29,7 @@ class App < Sinatra::Base
   end
 
   post '/users' do
-    username = params['username']
-    email = params['email']
-    password = params['password']
-
-    db.execute('INSERT INTO users (username, password, email) VALUES (?, ?, ?)', [username, password, email])
+    User.create(username: params['username'], password: params['password'], email: params['email'])
     redirect('/login')
   end
 
@@ -39,12 +38,9 @@ class App < Sinatra::Base
   end
 
   post '/login' do
-    username = params['username']
-    password = params['password']
-
-    user = db.execute('SELECT * FROM users WHERE username = ?', [username]).first
-    if user && user['password'] == password
-      session[:user_id] = user['user_id']
+    user = User.find_by_username(params['username'])
+    if user && user.password == params['password']
+      session[:user_id] = user.id
       redirect('/')
     else
       "Invalid login credentials."
@@ -57,38 +53,48 @@ class App < Sinatra::Base
   end
 
   post '/create' do
-      title = params['title']
-      color = params['price']
-      description = params['description']
-      priority = params['stock']
-      owner_id = params['user_id']
+    user = User.find_by_id(session[:user_id])
+    if !session[:user_id]
+      redirect ('/login')
+    end
 
-      db.execute("INSERT INTO items (title, price, user_id, description, stock) VALUES(?,?,?,?,?)", [title, price, user_id, description, stock])
-      redirect("/")
+    Item.create(title: params['title'], price: params['price'], user_id: user.id, description: params['description'], stock:params['stock'])
+    redirect('/')
   end
 
   delete '/delete/:id' do
-    item_id = params[:id]
-    db.execute('DELETE FROM items WHERE id = ? AND user_id = ?', [item_id, session[:user_id]])
+    user = User.find_by_id(session[:user_id])
+    item = Item.find_by_id(params[:id])
+    item.delete(user) if item
     redirect('/')
   end
 
   get '/edit' do
-    if !session[:user_id]
-      redirect ('/login')
+    user = User.find_by_id(session[:user_id])
+    redirect '/login' unless user
+
+    if user.admin?
+      @items = Item.all
+    else
+      @items = Item.find_by_user(user.id)
     end
 
-    @items = db.execute('SELECT * FROM items WHERE user_id = ?', [session[:user_id]])
     erb(:edit)
   end
 
   get '/editor/:id' do
+    user = User.find_by_id(session[:user_id])
     if !session[:user_id]
       redirect ('/login')
     end
 
-    item_id = params[:id]
-    item = db.execute('SELECT * FROM items WHERE id = ? AND user_id = ?', [item_id, session[:user_id]]).first
+    if user.admin?
+      item = Item.find_by_id(params[:id])
+    else
+      item = Item.find_by_id(params[:id])
+      item = nil if item && item.user_id != user.id
+    end
+
     if item
       @databasitem = item
       erb :editor
@@ -98,14 +104,16 @@ class App < Sinatra::Base
   end
 
   post '/editor/:id' do
-    id = params['id']
-    title = params['title']
-    price = params['price']
-    description = params['description']
-    stock = params['stock']
+    user = User.find_by_id(session[:user_id])
+    if !session[:user_id]
+      redirect ('/login')
+    end
 
-    db.execute('UPDATE items SET title = ?, price = ?, description = ?, stock = ? WHERE id = ? AND user_id = ?',
-    [title, price, description, stock, item_id, session[:user_id]])
+    item = Item.find_by_id(params[:id])
+    if item
+      item.update({ title: params['title'], price: params['price'], description: params['description'], stock: params['stock'] }, user)
+    end
+
     redirect('/')
   end
 end
