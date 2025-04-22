@@ -116,4 +116,29 @@ class App < Sinatra::Base
 
     redirect('/')
   end
+
+  post '/favorite/:id' do
+    redirect('/login') unless session[:user_id]
+    item_id = params[:id]
+
+    existing = db.execute('SELECT * FROM favorites WHERE user_id = ? AND item_id = ?', [session[:user_id], item_id])
+    if existing.empty?
+      db.execute('INSERT INTO favorites (user_id, item_id) VALUES (?, ?)', [session[:user_id], item_id])
+    end
+
+    redirect('/')
+  end
+
+  get '/favorites' do
+    redirect('/login') unless session[:user_id]
+
+    rows = db.execute('SELECT items.* FROM items
+                   JOIN favorites ON items.id = favorites.item_id
+                   WHERE favorites.user_id = ?', [session[:user_id]])
+
+    @favorites = rows.map { |row| Item.new(row) }
+
+    erb :favorites
+  end
+
 end

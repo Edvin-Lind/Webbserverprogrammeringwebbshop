@@ -1,0 +1,11 @@
+<h1>My Favorites</h1>
+
+<ul>
+  <% @favorites.each do |item| %>
+    <li>
+      <strong><%= item.title %></strong> — <%= item.description %> — <%= item.price %> kr
+    </li>
+  <% end %>
+</ul>
+
+<a href="/">⬅ Back to Home</a>

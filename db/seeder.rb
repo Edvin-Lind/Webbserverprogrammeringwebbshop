@@ -11,21 +11,29 @@ class Seeder
   def self.drop_tables
     db.execute('DROP TABLE IF EXISTS items')
     db.execute('DROP TABLE IF EXISTS users')
+    db.execute('DROP TABLE IF EXISTS favorites')
   end
 
   def self.create_tables
-    db.execute('CREATE TABLE items (
+    db.execute('CREATE TABLE IF NOT EXISTS items (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT NOT NULL,
-                price INTEGER NOT NULL,
+                title TEXT,
+                price REAL,
                 description TEXT,
                 stock INTEGER,
-                user_id INTEGER NOT NULL)')
+                user_id INTEGER,
+                FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE);')
     db.execute('CREATE TABLE users (
                 user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL,
                 password TEXT NOT NULL,
                 email TEXT NOT NULL)')
+    db.execute('CREATE TABLE IF NOT EXISTS favorites (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                item_id INTEGER NOT NULL,
+                FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
+                FOREIGN KEY(item_id) REFERENCES items(id) ON DELETE CASCADE);')
   end
 
   def self.populate_tables

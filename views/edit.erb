@@ -34,14 +34,14 @@
     <div class="main">
       <% @items.each do |item| %>
       <div>
-        <h2><%= item['title'] %></h2>
-        <p>Price: <%= item['price'] %></p>
-        <p>Description: <%= item['description'] %></p>
-        <p>Stock: <%= item['stock'] %></p>
+        <h2><%= item.title %></h2>
+        <p>Price: <%= item.price %></p>
+        <p>Description: <%= item.description %></p>
+        <p>Stock: <%= item.stock %></p>
 
-        <a href="/editor/<%= item['id'] %>">Edit</a>
+        <a href="/editor/<%= item.id %>">Edit</a>
 
-        <form action="/delete/<%= item['id'] %>" method="post">
+        <form action="/delete/<%= item.id %>" method="post">
           <input type="hidden" name="_method" value="delete" />
           <input type="submit" value="Delete" />
         </form>

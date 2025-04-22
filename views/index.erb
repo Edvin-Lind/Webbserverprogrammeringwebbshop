@@ -22,15 +22,23 @@
       <a href="/signup">Sign Up</a>
       <% end %>
       <a href="/edit">Edit</a>
+      <a href="/favorites">⭐ My Favorites</a>
     </header>
 
     <div id="main">
-      <% @items.each do |items| %>
+      <% @items.each do |item| %>
       <div class="card">
-        <h1><%= items ['title'] %></h1>
-        <a href="" class="price"><p>price: <%= items ['price'] %></p></a>
-        <p id="stock">stock: <%= items ['stock'] %></p>
-        <p><%= items ['description'] %></p>
+        <h3><%= item.title %></h3>
+        <p><%= item.description %></p>
+        <p><%= item.price %> kr</p>
+
+        <form
+          action="/favorite/<%= item.id %>"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">❤️ Favorite</button>
+        </form>
       </div>
       <% end %>
     </div>

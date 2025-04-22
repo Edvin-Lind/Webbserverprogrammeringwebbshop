@@ -17,7 +17,7 @@ class Item
   end
 
   def self.all
-    db.execute('SELECT * FROM items')
+    db.execute('SELECT * FROM items').map { |row| new(row) }
   end
 
   def self.find_by_id(id)
