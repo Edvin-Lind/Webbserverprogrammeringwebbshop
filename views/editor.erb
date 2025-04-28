@@ -11,7 +11,7 @@
     />
   </head>
   <body>
-    <form action="/editor/<%= @databasitem.id %>" method="post">
+    <form action="/items/<%= @databasitem.id %>/edit" method="post">
       <label>Title: <input type="text" name="title" value="<%= @databasitem.title %>"></label><br>
       <label>Price: <input type="integer" name="price" value="<%= @databasitem.price %>"></label><br>
       <label>Description: <input type="text" name="description" value="<%= @databasitem.description %>"></lable><br>

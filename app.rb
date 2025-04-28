@@ -52,7 +52,7 @@ class App < Sinatra::Base
     redirect('/')
   end
 
-  post '/create' do
+  post '/items' do
     user = User.find_by_id(session[:user_id])
     if !session[:user_id]
       redirect ('/login')
@@ -62,14 +62,14 @@ class App < Sinatra::Base
     redirect('/')
   end
 
-  delete '/delete/:id' do
+  delete '/item/:id' do
     user = User.find_by_id(session[:user_id])
     item = Item.find_by_id(params[:id])
     item.delete(user) if item
     redirect('/')
   end
 
-  get '/edit' do
+  get '/items' do
     user = User.find_by_id(session[:user_id])
     redirect '/login' unless user
 
@@ -82,7 +82,7 @@ class App < Sinatra::Base
     erb(:edit)
   end
 
-  get '/editor/:id' do
+  get '/items/:id/edit' do
     user = User.find_by_id(session[:user_id])
     if !session[:user_id]
       redirect ('/login')
@@ -103,7 +103,7 @@ class App < Sinatra::Base
     end
   end
 
-  post '/editor/:id' do
+  post '/items/:id/edit' do
     user = User.find_by_id(session[:user_id])
     if !session[:user_id]
       redirect ('/login')
