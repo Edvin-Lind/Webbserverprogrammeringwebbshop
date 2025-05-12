@@ -4,6 +4,10 @@
   <% @favorites.each do |item| %>
     <li>
       <strong><%= item.title %></strong> — <%= item.description %> — <%= item.price %> kr
+      <form action="/favorites/<%= item.id %>" method="POST" style="display:inline;">
+        <input type="hidden" name="_method" value="DELETE" />
+        <button type="submit">🗑 Ta bort</button>
+      </form>
     </li>
   <% end %>
 </ul>

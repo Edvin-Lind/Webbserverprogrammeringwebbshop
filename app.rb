@@ -21,11 +21,11 @@ class App < Sinatra::Base
 
   get '/' do
       @items = Item.all
-      erb(:"index")
+      erb(:"items/index")
   end
 
   get '/signup' do
-    erb(:"signup")
+    erb(:"users/signup")
   end
 
   post '/users' do
@@ -34,7 +34,7 @@ class App < Sinatra::Base
   end
 
   get '/login' do
-    erb(:"login")
+    erb(:"users/login")
   end
 
   post '/login' do
@@ -62,7 +62,7 @@ class App < Sinatra::Base
     redirect('/')
   end
 
-  delete '/item/:id' do
+  delete '/items/:id' do
     user = User.find_by_id(session[:user_id])
     item = Item.find_by_id(params[:id])
     item.delete(user) if item
@@ -79,7 +79,7 @@ class App < Sinatra::Base
       @items = Item.find_by_user(user.id)
     end
 
-    erb(:edit)
+    erb(:"items/edit")
   end
 
   get '/items/:id/edit' do
@@ -97,7 +97,7 @@ class App < Sinatra::Base
 
     if item
       @databasitem = item
-      erb :editor
+      erb(:"items/editor")
     else
       "You are not authorized to edit this product."
     end
@@ -129,6 +129,14 @@ class App < Sinatra::Base
     redirect('/')
   end
 
+  delete '/favorites/:id' do
+    redirect("/login") unless session[:user_id]
+    item_id = params[:id]
+
+    db.execute('DELETE FROM favorites WHERE user_id = ? and item_id = ?', [session[:user_id], item_id])
+    redirect('/favorites')
+  end
+
   get '/favorites' do
     redirect('/login') unless session[:user_id]
 
@@ -138,7 +146,7 @@ class App < Sinatra::Base
 
     @favorites = rows.map { |row| Item.new(row) }
 
-    erb :favorites
+    erb(:"favorites/favorites")
   end
 
 end
